@@ -4,4 +4,4 @@ services:
     authorization-service:
         build: .
         ports:
-            - "8001:8001"
+            - "8999:8999"

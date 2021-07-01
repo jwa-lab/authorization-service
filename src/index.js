@@ -4,7 +4,7 @@ const uuid = require("uuid");
 
 const logPrefix = "[MOCK AUTHORIZATION DEV]";
 const keyStore = jose.JWK.createKeyStore();
-const PORT = 8001;
+const PORT = 8999;
 
 async function server() {
     const app = express();
