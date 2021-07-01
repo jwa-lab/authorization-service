@@ -1,0 +1,7 @@
+version: "3.8"
+
+services:
+    authorization-service:
+        build: .
+        ports:
+            - "8001:8001"
