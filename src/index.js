@@ -58,7 +58,7 @@ async function createJWT() {
     };
     const payload = {
         aud: "api://default",
-        iss: "http://localhost:8001/oauth2/default",
+        iss: `http://localhost:${PORT}/oauth2/default`,
         exp: 4116816351,
         iat: Math.floor(Date.now() / 1000),
         jti: uuid.v4(),
