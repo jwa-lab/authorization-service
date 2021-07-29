@@ -1,7 +1,5 @@
 FROM node:14-alpine
 
-USER node
-
 WORKDIR /app
 
 COPY src ./src
@@ -11,6 +9,8 @@ COPY package.json .
 COPY package-lock.json .
 
 RUN npm install
+
+USER node
 
 ENTRYPOINT ["npm", "run", "start"]
 
