@@ -1,0 +1,29 @@
+version: 2.1
+orbs:
+    node: circleci/node@4.1.1
+jobs:
+    lint:
+        executor: node/default
+        steps:
+            - checkout
+            - run: npm install
+            - run: npm run lint
+    docker-push:
+        machine: true
+        steps:
+            - checkout
+            - run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_ACCESS_KEY
+            - run: ./run docker-build
+            - run: ./run docker-tag
+            - run: ./run docker-push
+workflows:
+    ci-cd:
+        jobs:
+            - lint
+            - docker-push:
+                  requires:
+                      - lint
+                  filters:
+                      branches:
+                          only:
+                              - main

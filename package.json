@@ -1,32 +1,40 @@
 {
-  "name": "authorization-service",
-  "version": "0.0.1",
-  "description": "JWA Mock authorization service",
-  "main": "src/index.js",
-  "scripts": {
-	"start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jwa-lab/authorization-service.git"
-  },
-  "keywords": [
-    "JWA",
-    "AIRLOCK",
-    "AUTHORIZATION",
-    "MOCK",
-	"platform"
-  ],
-  "author": "JWA Lab",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/jwa-lab/authorization-service/issues"
-  },
-  "homepage": "https://github.com/jwa-lab/authorization-service#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "node-jose": "^2.0.0",
-    "uuid": "^3.4.0"
-  }
+    "name": "authorization-service",
+    "version": "0.0.2",
+    "description": "JWA Mock authorization service",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js",
+        "prettier": "npx prettier --write .",
+        "lint": "eslint ./src",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jwa-lab/authorization-service.git"
+    },
+    "keywords": [
+        "JWA",
+        "AIRLOCK",
+        "AUTHORIZATION",
+        "MOCK",
+        "platform"
+    ],
+    "author": "JWA Lab",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/jwa-lab/authorization-service/issues"
+    },
+    "homepage": "https://github.com/jwa-lab/authorization-service#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "node-jose": "^2.0.0",
+        "uuid": "^3.4.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.31.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^3.4.0",
+        "prettier": "^2.3.2"
+    }
 }
