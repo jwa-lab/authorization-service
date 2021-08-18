@@ -15,7 +15,7 @@ async function server() {
     app.use("/oauth2/default/v1/token", async (req, res, next) => {
         let jwt;
         try {
-            jwt = await createJWT();
+            jwt = await createJWT(req.query?.token_type);
         } catch (error) {
             return res.status(500).send({
                 error: error?.message || "Undefined Error",
@@ -48,7 +48,7 @@ async function createJWK() {
     console.log(logPrefix, "JWK successfully created.");
 }
 
-async function createJWT() {
+async function createJWT(token_type = "user") {
     const [key] = keyStore.all({ use: "sig" });
     const options = {
         compact: true,
@@ -57,18 +57,39 @@ async function createJWT() {
             typ: "JWT"
         }
     };
-    const payload = {
+    let default_payload = {
         aud: "api://default",
         iss: `http://${TOKEN_ISSUER}:${PORT}/oauth2/default`,
         exp: 4116816351,
         iat: Math.floor(Date.now() / 1000),
-        jti: uuid.v4(),
-        sub: "DEV_TOKEN"
+        jti: uuid.v4()
     };
+
+    switch (token_type) {
+        case "user":
+            default_payload = {
+                ...default_payload,
+                cid: "studio_id",
+                uid: "unique_user_id",
+                sub: "unique_username"
+            };
+            break;
+        case "studio":
+            default_payload = {
+                ...default_payload,
+                cid: "studio_id",
+                sub: "studio_id",
+                scp: ["test_scope"]
+            };
+            break;
+        default:
+            throw new Error("Invalid token type.");
+    }
+
     let token;
 
     token = jose.JWS.createSign(options, key)
-        .update(JSON.stringify(payload))
+        .update(JSON.stringify(default_payload))
         .final();
 
     return token;
