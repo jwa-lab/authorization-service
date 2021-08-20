@@ -79,7 +79,8 @@ async function createJWT(token_type = "user") {
                 ...default_payload,
                 cid: "studio_id",
                 sub: "studio_id",
-                scp: ["test_scope"]
+                studio: true,
+                scp: ["studio_scope"]
             };
             break;
         default:
