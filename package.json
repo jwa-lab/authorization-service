@@ -1,6 +1,6 @@
 {
     "name": "authorization-service",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "JWA Mock authorization service",
     "main": "src/index.js",
     "scripts": {
