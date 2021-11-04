@@ -5,3 +5,6 @@ services:
         build: .
         ports:
             - "8999:8999"
+        environment:
+            - TOKEN_ISSUER=localhost
+        restart: always
