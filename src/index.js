@@ -14,8 +14,10 @@ async function server() {
 
     app.use("/oauth2/default/v1/token", async (req, res, next) => {
         let jwt;
+        const { token_type, studio_id, user_id } = req.query;
+
         try {
-            jwt = await createJWT(req.query?.token_type);
+            jwt = await createJWT(token_type, studio_id, user_id);
         } catch (error) {
             return res.status(500).send({
                 error: error?.message || "Undefined Error",
@@ -48,7 +50,11 @@ async function createJWK() {
     console.log(logPrefix, "JWK successfully created.");
 }
 
-async function createJWT(token_type = "user") {
+async function createJWT(
+    token_type = "user",
+    studio_id = "studio_id",
+    user_id = "unique_user_id"
+) {
     const [key] = keyStore.all({ use: "sig" });
     const options = {
         compact: true,
@@ -69,16 +75,16 @@ async function createJWT(token_type = "user") {
         case "user":
             default_payload = {
                 ...default_payload,
-                cid: "studio_id",
-                uid: "unique_user_id",
+                cid: studio_id,
+                uid: user_id,
                 sub: "unique_username"
             };
             break;
         case "studio":
             default_payload = {
                 ...default_payload,
-                cid: "studio_id",
-                sub: "studio_id",
+                cid: studio_id,
+                sub: studio_id,
                 studio: true,
                 scp: ["studio_scope"]
             };
